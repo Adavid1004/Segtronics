@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 public class Conexion {
    public static Connection conectar(){
        try {
-           Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/bd_terceron","root","");
+           Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/bd_segtronics","root","");
            return cn;
        } catch (Exception e) {
            JOptionPane.showMessageDialog(null,  "Error en la conexion con la base de datos"+e);

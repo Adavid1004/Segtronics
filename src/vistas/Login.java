@@ -95,20 +95,20 @@ String pass ="";
                 try {
                 Connection cn = Conexion.conectar();
                 
-                PreparedStatement pst=cn.prepareStatement("Select tipo_nivel,estatus from usuarios where username='"+user+"' && password='"+pass+"'");
+                PreparedStatement pst=cn.prepareStatement("Select nivel,estatus from usuarios where username='"+user+"' && password='"+pass+"'");
                 ResultSet rs=pst.executeQuery();
                 
                 if(rs.next()){
-                    String tipo_nivel=rs.getString("tipo_nivel");
+                    String tipo_nivel=rs.getString("nivel");
                     String estatus=rs.getString("estatus");
                     
                     
                     if(tipo_nivel.equalsIgnoreCase("Administrador") && estatus.equalsIgnoreCase("Activo")){
                     dispose();
-                    new Administrador().setVisible(true);
-                    }else if(tipo_nivel.equalsIgnoreCase("Tecnico") && estatus.equalsIgnoreCase("Activo")){
+                    new MenuAdmin().setVisible(true);
+                    }else if(tipo_nivel.equalsIgnoreCase("Empleado") && estatus.equalsIgnoreCase("Activo")){
                       dispose();
-                     // new Tecnico().setVisible(true);
+                      new MenuUsuario().setVisible(true);
                     }else{
                        JOptionPane.showMessageDialog(null, "Datos de acceso al sistema incorrectos");
                     }
