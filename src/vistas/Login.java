@@ -110,8 +110,10 @@ String pass ="";
                       dispose();
                       new MenuUsuario().setVisible(true);
                     }else{
-                       JOptionPane.showMessageDialog(null, "Datos de acceso al sistema incorrectos");
-                    }
+                    }     
+                }else{
+                  JOptionPane.showMessageDialog(null, "Datos de acceso al sistema incorrectos");
+
                 }
                 
             } catch (Exception e) {

@@ -340,7 +340,7 @@ public class Busqueda_Usuarios extends javax.swing.JFrame {
             
         try {
             Connection cn = Conexion.conectar();
-            PreparedStatement pst =cn.prepareStatement("select * from usuarios where identificacion=?");
+            PreparedStatement pst =cn.prepareStatement("select * from usuarios where identificacion=? ");
             pst.setString(1, txtBusqueUsu.getText().trim());
             ResultSet rs = pst.executeQuery();
             

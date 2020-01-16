@@ -35,6 +35,12 @@ public class MenuUsuario extends javax.swing.JFrame {
 
         jLabel6.setText("Cliente");
 
+        btnInventario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInventarioActionPerformed(evt);
+            }
+        });
+
         jLabel3.setText("Revisar Inventario");
 
         jButton1.setText("Salir");
@@ -104,6 +110,12 @@ public class MenuUsuario extends javax.swing.JFrame {
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btnNuevoClienteAdmActionPerformed
+
+    private void btnInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventarioActionPerformed
+new Inventario().setVisible(true);
+        dispose();
+       
+    }//GEN-LAST:event_btnInventarioActionPerformed
 
     
     public static void main(String args[]) {
