@@ -44,6 +44,11 @@ public class Busqueda_Clientes extends javax.swing.JFrame {
 
         jLabel1.setText("Cedula:");
 
+        txtBuscarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarClienteActionPerformed(evt);
+            }
+        });
         txtBuscarCliente.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtBuscarClienteKeyPressed(evt);
@@ -391,6 +396,10 @@ public class Busqueda_Clientes extends javax.swing.JFrame {
             
         // TODO add your handling code here:
     }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void txtBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscarClienteActionPerformed
 
     /**
      * @param args the command line arguments

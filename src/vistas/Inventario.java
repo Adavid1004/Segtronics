@@ -188,7 +188,7 @@ public class Inventario extends javax.swing.JFrame {
             PreparedStatement pst = cn.prepareStatement("select id_inventario ID, producto PRODUCTO, cantidad CANTIDAD, precio PRECIO,codigo CÓDIGO from inventario where producto LIKE '%"+txtCódigoProducto.getText()+"%'  or codigo LIKE '%"+txtCódigoProducto.getText()+"%'");
             //bse de datos
             ResultSet rs = pst.executeQuery();  // para descargar datos
-
+            
             while(rs.next()){
                 dato[0]=rs.getString(1);
                 dato[1]=rs.getString(2);
@@ -196,9 +196,7 @@ public class Inventario extends javax.swing.JFrame {
                 dato[3]=rs.getString(4);
                 dato[4]=rs.getString(5); //descargar datos de la tabla
                
-
                 modelo.addRow(dato);
-
             }
             tbInventario.setModel(modelo);
 
