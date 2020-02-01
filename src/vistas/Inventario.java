@@ -1,24 +1,23 @@
-
 package vistas;
 
 import clases.Conexion;
+import java.awt.Color;
 import java.sql.*;
 import javax.swing.table.DefaultTableModel;
 
-
-
 public class Inventario extends javax.swing.JFrame {
 
- 
     public Inventario() {
         initComponents();
         setLocationRelativeTo(null);
         mostrarDatos();
-        
-        
+
+        this.getContentPane().setBackground(Color.white);
+
     }
-    public void mostrarDatos(){
-       try {
+
+    public void mostrarDatos() {
+        try {
             DefaultTableModel modelo = new DefaultTableModel();
             modelo.addColumn("ID");
             modelo.addColumn("PRODUCTO");
@@ -26,20 +25,19 @@ public class Inventario extends javax.swing.JFrame {
             modelo.addColumn("PRECIO");
             modelo.addColumn("CÓDIGO");
 
-            String []dato =new String[5]; //segun las columnas de la tabla (es un vector)
+            String[] dato = new String[5]; //segun las columnas de la tabla (es un vector)
 
             Connection cn = Conexion.conectar();
             PreparedStatement pst = cn.prepareStatement("select id_inventario ID, producto PRODUCTO, cantidad CANTIDAD, precio PRECIO,codigo CÓDIGO from inventario");
             //bse de datos
             ResultSet rs = pst.executeQuery();  // para descargar datos
 
-            while(rs.next()){
-                dato[0]=rs.getString(1);
-                dato[1]=rs.getString(2);
-                dato[2]=rs.getString(3);
-                dato[3]=rs.getString(4);
-                dato[4]=rs.getString(5); //descargar datos de la tabla
-               
+            while (rs.next()) {
+                dato[0] = rs.getString(1);
+                dato[1] = rs.getString(2);
+                dato[2] = rs.getString(3);
+                dato[3] = rs.getString(4);
+                dato[4] = rs.getString(5); //descargar datos de la tabla
 
                 modelo.addRow(dato);
 
@@ -47,10 +45,9 @@ public class Inventario extends javax.swing.JFrame {
             tbInventario.setModel(modelo);
 
         } catch (Exception e) {
-        } 
+        }
     }
 
- 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -183,20 +180,20 @@ public class Inventario extends javax.swing.JFrame {
             modelo.addColumn("PRECIO");
             modelo.addColumn("CÓDIGO");
 
-            String []dato =new String[5]; //segun las columnas de la tabla (es un vector)
+            String[] dato = new String[5]; //segun las columnas de la tabla (es un vector)
 
             Connection cn = Conexion.conectar();
-            PreparedStatement pst = cn.prepareStatement("select id_inventario ID, producto PRODUCTO, cantidad CANTIDAD, precio PRECIO,codigo CÓDIGO from inventario where producto LIKE '%"+txtCódigoProducto.getText()+"%'  or codigo LIKE '%"+txtCódigoProducto.getText()+"%'");
+            PreparedStatement pst = cn.prepareStatement("select id_inventario ID, producto PRODUCTO, cantidad CANTIDAD, precio PRECIO,codigo CÓDIGO from inventario where producto LIKE '%" + txtCódigoProducto.getText() + "%'  or codigo LIKE '%" + txtCódigoProducto.getText() + "%'");
             //bse de datos
             ResultSet rs = pst.executeQuery();  // para descargar datos
-            
-            while(rs.next()){
-                dato[0]=rs.getString(1);
-                dato[1]=rs.getString(2);
-                dato[2]=rs.getString(3);
-                dato[3]=rs.getString(4);
-                dato[4]=rs.getString(5); //descargar datos de la tabla
-               
+
+            while (rs.next()) {
+                dato[0] = rs.getString(1);
+                dato[1] = rs.getString(2);
+                dato[2] = rs.getString(3);
+                dato[3] = rs.getString(4);
+                dato[4] = rs.getString(5); //descargar datos de la tabla
+
                 modelo.addRow(dato);
             }
             tbInventario.setModel(modelo);
@@ -210,25 +207,24 @@ public class Inventario extends javax.swing.JFrame {
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
 
         new Productos().setVisible(true);
-        
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-mostrarDatos();        // TODO add your handling code here:
+        mostrarDatos();        // TODO add your handling code here:
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-       DefaultTableModel tabla = (DefaultTableModel) tbInventario.getModel();
-       int row = tbInventario.getSelectedRow();
-         System.out.println(row);
-        String id =String.valueOf(tbInventario.getValueAt(row, 0));
+        DefaultTableModel tabla = (DefaultTableModel) tbInventario.getModel();
+        int row = tbInventario.getSelectedRow();
+        System.out.println(row);
+        String id = String.valueOf(tbInventario.getValueAt(row, 0));
         System.out.println(id);
         Editar j = new Editar();
         j.setID(id);
         j.setVisible(true);
-        
+
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void txtCódigoProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCódigoProductoActionPerformed
@@ -236,34 +232,32 @@ mostrarDatos();        // TODO add your handling code here:
     }//GEN-LAST:event_txtCódigoProductoActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-Login lg = new Login();
-              String Usuario = lg.user;
-        
-                try {
-                Connection cn = Conexion.conectar();
-                
-                PreparedStatement pst=cn.prepareStatement("Select nivel,estatus from usuarios where username='"+Usuario+"'");
-                ResultSet rs=pst.executeQuery();
-                
-                if(rs.next()){
-                    String tipo_nivel=rs.getString("nivel");
-                    String estatus=rs.getString("estatus");
-                    
-                    
-                    if(tipo_nivel.equalsIgnoreCase("Administrador") && estatus.equalsIgnoreCase("Activo")){
+        Login lg = new Login();
+        String Usuario = lg.user;
+
+        try {
+            Connection cn = Conexion.conectar();
+
+            PreparedStatement pst = cn.prepareStatement("Select nivel,estatus from usuarios where username='" + Usuario + "'");
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                String tipo_nivel = rs.getString("nivel");
+                String estatus = rs.getString("estatus");
+
+                if (tipo_nivel.equalsIgnoreCase("Administrador") && estatus.equalsIgnoreCase("Activo")) {
                     dispose();
                     new MenuAdmin().setVisible(true);
-                    }else if(tipo_nivel.equalsIgnoreCase("Empleado") && estatus.equalsIgnoreCase("Activo")){
-                      dispose();
-                      new MenuUsuario().setVisible(true);
-                    }
+                } else if (tipo_nivel.equalsIgnoreCase("Empleado") && estatus.equalsIgnoreCase("Activo")) {
+                    dispose();
+                    new MenuUsuario().setVisible(true);
                 }
-                
-            } catch (Exception e) {
-            }        // TODO add your handling code here:
+            }
+
+        } catch (Exception e) {
+        }        // TODO add your handling code here:
     }//GEN-LAST:event_btnRegresarActionPerformed
 
-    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

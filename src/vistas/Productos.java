@@ -2,6 +2,7 @@
 package vistas;
 
 import clases.Conexion;
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,6 +16,7 @@ public class Productos extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
 
+            this.getContentPane().setBackground(Color.white);
     }
 
  

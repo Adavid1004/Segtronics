@@ -1,13 +1,13 @@
-
 package vistas;
+
 import clases.Conexion;
+import clases.GestionDatos;
+import java.awt.Color;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
 public class Busqueda_Usuarios extends javax.swing.JFrame {
-
 
     public Busqueda_Usuarios() {
         initComponents();
@@ -16,10 +16,12 @@ public class Busqueda_Usuarios extends javax.swing.JFrame {
         comboEstado.addItem("Inactivo");
         comboNivel.addItem("Administrador");
         comboNivel.addItem("Empleado");
+        this.getContentPane().setBackground(Color.white);
+
     }
 
-   public void mostrarDatos(String valor){
-    
+    public void mostrarDatos(String valor) {
+
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("ID");
         modelo.addColumn("NOMBRE");
@@ -29,43 +31,44 @@ public class Busqueda_Usuarios extends javax.swing.JFrame {
         modelo.addColumn("USERNAME");
         modelo.addColumn("NIVEL");
         modelo.addColumn("ESTADO");
-        
-        String sql="";
-        if (valor.equals("")){
-            
-            sql="select * from usuarios";
-            
-        }else{
-        
-            sql="select id_usuarios ID, nombre NOMBRE, identificacion IDENTIFICACION, email MAIL, telefono TELEFONO, username USERNAME, nivel NIVEL, estatus ESTADO from usuarios where identificacion='"+txtBusqueUsu.getText()+"'";
+
+        String sql = "";
+        if (valor.equals("")) {
+
+            sql = "select * from usuarios";
+
+        } else {
+
+            sql = "select id_usuarios ID, nombre NOMBRE, identificacion IDENTIFICACION, email MAIL, telefono TELEFONO, username USERNAME, nivel NIVEL, estatus ESTADO from usuarios where identificacion='" + txtBusqueUsu.getText() + "'";
         }
-        
-        String []dato =new String[8]; //segun las columnas de la tabla (es un vector)
-        
+
+        String[] dato = new String[8]; //segun las columnas de la tabla (es un vector)
+
         try {
             Connection cn = Conexion.conectar();
             PreparedStatement pst = cn.prepareStatement(sql);   //bse de datos
             ResultSet rs = pst.executeQuery();  // para descargar datos
-            
-            while(rs.next()){
-                dato[0]=rs.getString(1);
-                dato[1]=rs.getString(2);
-                dato[2]=rs.getString(3);
-                dato[3]=rs.getString(4);
-                dato[4]=rs.getString(5);
-                dato[5]=rs.getString(6);
-                dato[6]=rs.getString(7); //descargar datos de la tabla
-                dato[7]=rs.getString(8);
-                
+
+            while (rs.next()) {
+                dato[0] = rs.getString(1);
+                dato[1] = rs.getString(2);
+                dato[2] = rs.getString(3);
+                dato[3] = rs.getString(4);
+                dato[4] = rs.getString(5);
+                dato[5] = rs.getString(6);
+                dato[6] = rs.getString(8); //descargar datos de la tabla
+                dato[7] = rs.getString(9);
+                //segun posciones de la base de datos
+
                 modelo.addRow(dato);
-                
+
             }
-            lstUsuarios.setModel(modelo);  
-            
-            
+            lstUsuarios.setModel(modelo);
+
         } catch (Exception e) {
         }
-   }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -309,103 +312,106 @@ public class Busqueda_Usuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_comboNivelActionPerformed
 
     private void txtBusqueUsuKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusqueUsuKeyPressed
-        
-        try {   
-        DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn("ID");
-        modelo.addColumn("NOMBRE");
-        modelo.addColumn("IDENTIFICACION");
-        modelo.addColumn("MAIL");
-        modelo.addColumn("TELEFONO");
-        modelo.addColumn("USERNAME");
-        modelo.addColumn("NIVEL");
-        modelo.addColumn("ESTADO");
-        
-    
-        
-        String []dato =new String[8]; //segun las columnas de la tabla (es un vector)
-        
-       
+
+        try {
+            DefaultTableModel modelo = new DefaultTableModel();
+            modelo.addColumn("ID");
+            modelo.addColumn("NOMBRE");
+            modelo.addColumn("IDENTIFICACION");
+            modelo.addColumn("MAIL");
+            modelo.addColumn("TELEFONO");
+            modelo.addColumn("USERNAME");
+            modelo.addColumn("NIVEL");
+            modelo.addColumn("ESTADO");
+
+            String[] dato = new String[8]; //segun las columnas de la tabla (es un vector)
+
             Connection cn = Conexion.conectar();
-            PreparedStatement pst = cn.prepareStatement("select id_usuarios ID, nombre NOMBRE, identificacion IDENTIFICACION, email MAIL, telefono TELEFONO, username USERNAME, nivel NIVEL, estatus ESTADO from usuarios where identificacion LIKE '%"+txtBusqueUsu.getText()+"'");
-           //bse de datos
+            PreparedStatement pst = cn.prepareStatement("select id_usuarios ID, nombre NOMBRE, identificacion IDENTIFICACION, email MAIL, telefono TELEFONO, username USERNAME, nivel NIVEL, estatus ESTADO from usuarios where identificacion LIKE '%" + txtBusqueUsu.getText() + "%'");
+            //bse de datos
             ResultSet rs = pst.executeQuery();  // para descargar datos
-            
-            while(rs.next()){
-                dato[0]=rs.getString(1);
-                dato[1]=rs.getString(2);
-                dato[2]=rs.getString(3);
-                dato[3]=rs.getString(4);
-                dato[4]=rs.getString(5);
-                dato[5]=rs.getString(6);
-                dato[6]=rs.getString(7); //descargar datos de la tabla
-                dato[7]=rs.getString(8);
-                
+
+            while (rs.next()) {
+                dato[0] = rs.getString(1);
+                dato[1] = rs.getString(2);
+                dato[2] = rs.getString(3);
+                dato[3] = rs.getString(4);
+                dato[4] = rs.getString(5);
+                dato[5] = rs.getString(6);
+
+                dato[6] = rs.getString(8);
+                dato[7] = rs.getString(9);
+                //descargar datos de la tabla
+
                 modelo.addRow(dato);
-                
+
             }
-            lstUsuarios.setModel(modelo);  
-            
-            
+            lstUsuarios.setModel(modelo);
+
         } catch (Exception e) {
         }
-            
-
 
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBusqueUsuKeyPressed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-            
+
         try {
             Connection cn = Conexion.conectar();
-            PreparedStatement pst =cn.prepareStatement("select * from usuarios where identificacion=? ");
+            PreparedStatement pst = cn.prepareStatement("select * from usuarios where identificacion=? ");
             pst.setString(1, txtBusqueUsu.getText().trim());
             ResultSet rs = pst.executeQuery();
-            
-            if (rs.next()){
-                  
-                    txtNombreU.setText(rs.getString("nombre"));
-                    txtCedula.setText(rs.getString("identificacion"));
-                    txtMail.setText(rs.getString("email"));
-                    txtTelefono.setText(rs.getString("telefono"));
-                    txtMail.setText(rs.getString("email"));
-                    txtusername.setText(rs.getString("username")); 
-                    txtPassword.setText(rs.getString("password"));
-                    comboNivel.setSelectedItem(rs.getString("nivel"));
-                    comboEstado.setSelectedItem(rs.getString("estatus"));
-                    
-                    
-            }else{
-                    JOptionPane.showMessageDialog(null, "Datos no encontrados");
+
+            if (rs.next()) {
+
+                txtNombreU.setText(rs.getString("nombre"));
+                txtCedula.setText(rs.getString("identificacion"));
+                txtMail.setText(rs.getString("email"));
+                txtTelefono.setText(rs.getString("telefono"));
+                txtMail.setText(rs.getString("email"));
+                txtusername.setText(rs.getString("username"));
+                txtPassword.setText(rs.getString("password"));
+                comboNivel.setSelectedItem(rs.getString("nivel"));
+                comboEstado.setSelectedItem(rs.getString("estatus"));
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Datos no encontrados");
             }
-            
+
             mostrarDatos(txtBusqueUsu.getText());
-            
+
         } catch (Exception e) {
         }
-        
-
-
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-            try {
+        GestionDatos modSql = new GestionDatos();
+            String cedula;;
+        
+        try {
+
+            String id = txtBusqueUsu.getText();
+            Connection cn = Conexion.conectar();
+            PreparedStatement pst = cn.prepareStatement("update usuarios set nombre=?, identificacion=?, email=?, telefono=?, username=?, password=?, nivel=?, estatus=? where identifiacion='" + id + "'");
+            pst.setString(1, txtNombreU.getText().trim());
+            pst.setString(2, txtCedula.getText().trim());
+            pst.setString(3, txtMail.getText().trim());
+            pst.setString(4, txtTelefono.getText().trim());
+            pst.setString(5, txtusername.getText().trim());
+            pst.setString(6, txtPassword.getText().trim());
+            pst.setString(7, String.valueOf(comboNivel.getSelectedItem()).trim());
+            pst.setString(8, String.valueOf(comboEstado.getSelectedItem()).trim());
             
-                String id= txtBusqueUsu.getText();
-                Connection cn= Conexion.conectar();
-                PreparedStatement pst= cn.prepareStatement("update usuarios set nombre=?, identificacion=?, email=?, telefono=?, username=?, password=?, nivel=?, estatus=? where identifiacion='"+id+"'");
-                pst.setString(1, txtNombreU.getText().trim());
-                pst.setString(2, txtCedula.getText().trim());
-                pst.setString(3, txtMail.getText().trim());
-                pst.setString(4, txtTelefono.getText().trim());
-                pst.setString(5, txtusername.getText().trim());
-                pst.setString(6, txtPassword.getText().trim());
-                pst.setString(7, String.valueOf(comboNivel.getSelectedItem()).trim());
-                pst.setString(8, String.valueOf(comboEstado.getSelectedItem()).trim());
+            if(txtCedula.getText().equals("") || txtMail.getText().equals("") || txtNombreU.getText().equals("") || txtTelefono.getText().equals("") || txtusername.getText().equals("") || txtPassword.getText().equals("")){
+                     
+                JOptionPane.showMessageDialog(null, "Existen campos vacios");
             
+            }else{
+                if(modSql.ExisteUsuario(txtCedula.getText())==0){
+                if (modSql.esEmail(txtMail.getText())) {
+                if(validarDocumento(cedula=txtCedula.getText())==true){
                 txtNombreU.setText("");
                 txtCedula.setText("");
                 txtMail.setText("");
@@ -414,7 +420,19 @@ public class Busqueda_Usuarios extends javax.swing.JFrame {
                 txtPassword.setText("");
                 JOptionPane.showMessageDialog(null, "Registro guardado en la Base de Datos");
             pst.executeUpdate();
+                }else{
+                JOptionPane.showMessageDialog(null, "Cedula Incorrecta");
+                }
+                }else{
+                JOptionPane.showMessageDialog(null, "Correo Incorrecto");
                 
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Usuario ya existe");
+                }
+            
+            }
+            
         } catch (Exception e) {
         }
 
@@ -424,42 +442,221 @@ public class Busqueda_Usuarios extends javax.swing.JFrame {
     private void BTNregresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNregresarActionPerformed
 
         new MenuAdmin().setVisible(true);
-            dispose();
+        dispose();
 
         // TODO add your handling code here:
     }//GEN-LAST:event_BTNregresarActionPerformed
 
     private void txtCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyTyped
-            char validar =evt.getKeyChar();
-             if (Character.isLetter(validar)) {
-                 getToolkit().beep();
-                 evt.consume();
-             }
+        char validar = evt.getKeyChar();
+        if (Character.isLetter(validar)) {
+            getToolkit().beep();
+            evt.consume();
+        }
 
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCedulaKeyTyped
 
     private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
 
-
-            char validar =evt.getKeyChar();
-             if (Character.isLetter(validar)) {
-                 getToolkit().beep();
-                 evt.consume();
-             }
+        char validar = evt.getKeyChar();
+        if (Character.isLetter(validar)) {
+            getToolkit().beep();
+            evt.consume();
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTelefonoKeyTyped
 
     private void txtNombreUKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreUKeyTyped
-            char validar =evt.getKeyChar();
-             if (Character.isDigit(validar)) {
-                 getToolkit().beep();
-                 evt.consume();
-             }
-
+        char validar = evt.getKeyChar();
+        if (Character.isDigit(validar)) {
+            getToolkit().beep();
+            evt.consume();
+        }
 
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreUKeyTyped
+    private boolean validarDocumento(String numero) {
+        boolean valor = true;
+        try {
+            int suma = 0;
+            int residuo = 0;
+            boolean privada = false;
+            boolean publica = false;
+            boolean natural = false;
+            int numeroProvincias = 22;
+            int digitoVerificador = 0;
+            int modulo = 11;
+
+            int d1, d2, d3, d4, d5, d6, d7, d8, d9, d10;
+            int p1, p2, p3, p4, p5, p6, p7, p8, p9;
+
+            d1 = d2 = d3 = d4 = d5 = d6 = d7 = d8 = d9 = d10 = 0;
+            p1 = p2 = p3 = p4 = p5 = p6 = p7 = p8 = p9 = 0;
+
+            if (numero.length() < 10) {
+//				JOptionPane.showMessageDialog(Motor.getVentana(), "El n" + Motor.u + "mero ingresado no es v" + Motor.a + "lido");
+                numero = "";
+                valor = false;
+            }
+
+            // Los primeros dos digitos corresponden al codigo de la provincia
+            int provincia = Integer.parseInt(numero.substring(0, 2));
+
+            if (provincia <= 0 || provincia > numeroProvincias) {
+//				JOptionPane.showMessageDialog(Motor.getVentana(), "El c" + Motor.o + "digo de la provincia (dos primeros d" + Motor.i + "gitos) es inv" + Motor.a + "lido");
+                numero = "";
+                valor = false;
+            }
+
+            // Aqui almacenamos los digitos de la cedula en variables.
+            d1 = Integer.parseInt(numero.substring(0, 1));
+            d2 = Integer.parseInt(numero.substring(1, 2));
+            d3 = Integer.parseInt(numero.substring(2, 3));
+            d4 = Integer.parseInt(numero.substring(3, 4));
+            d5 = Integer.parseInt(numero.substring(4, 5));
+            d6 = Integer.parseInt(numero.substring(5, 6));
+            d7 = Integer.parseInt(numero.substring(6, 7));
+            d8 = Integer.parseInt(numero.substring(7, 8));
+            d9 = Integer.parseInt(numero.substring(8, 9));
+            d10 = Integer.parseInt(numero.substring(9, 10));
+
+            // El tercer digito es:
+            // 9 para sociedades privadas y extranjeros
+            // 6 para sociedades publicas
+            // menor que 6 (0,1,2,3,4,5) para personas naturales
+            if (d3 == 7 || d3 == 8) {
+//				JOptionPane.showMessageDialog(Motor.getVentana(), "El tercer d"	+ Motor.i + "gito ingresado es inv" + Motor.a + "lido");
+                numero = "";
+                valor = false;
+            }
+
+            // Solo para personas naturales (modulo 10)
+            if (d3 < 6) {
+                natural = true;
+                modulo = 10;
+                p1 = d1 * 2;
+                if (p1 >= 10) {
+                    p1 -= 9;
+                }
+                p2 = d2 * 1;
+                if (p2 >= 10) {
+                    p2 -= 9;
+                }
+                p3 = d3 * 2;
+                if (p3 >= 10) {
+                    p3 -= 9;
+                }
+                p4 = d4 * 1;
+                if (p4 >= 10) {
+                    p4 -= 9;
+                }
+                p5 = d5 * 2;
+                if (p5 >= 10) {
+                    p5 -= 9;
+                }
+                p6 = d6 * 1;
+                if (p6 >= 10) {
+                    p6 -= 9;
+                }
+                p7 = d7 * 2;
+                if (p7 >= 10) {
+                    p7 -= 9;
+                }
+                p8 = d8 * 1;
+                if (p8 >= 10) {
+                    p8 -= 9;
+                }
+                p9 = d9 * 2;
+                if (p9 >= 10) {
+                    p9 -= 9;
+                }
+            }
+
+            // Solo para sociedades publicas (modulo 11)
+            // Aqui el digito verficador esta en la posicion 9, en las otras 2
+            // en la pos. 10
+            if (d3 == 6) {
+                publica = true;
+                p1 = d1 * 3;
+                p2 = d2 * 2;
+                p3 = d3 * 7;
+                p4 = d4 * 6;
+                p5 = d5 * 5;
+                p6 = d6 * 4;
+                p7 = d7 * 3;
+                p8 = d8 * 2;
+                p9 = 0;
+            }
+
+            /* Solo para entidades privadas (modulo 11) */
+            if (d3 == 9) {
+                privada = true;
+                p1 = d1 * 4;
+                p2 = d2 * 3;
+                p3 = d3 * 2;
+                p4 = d4 * 7;
+                p5 = d5 * 6;
+                p6 = d6 * 5;
+                p7 = d7 * 4;
+                p8 = d8 * 3;
+                p9 = d9 * 2;
+            }
+
+            suma = p1 + p2 + p3 + p4 + p5 + p6 + p7 + p8 + p9;
+            residuo = suma % modulo;
+
+            // Si residuo=0, dig.ver.=0, caso contrario 10 - residuo
+            digitoVerificador = residuo == 0 ? 0 : modulo - residuo;
+            int longitud = numero.length(); // Longitud del string
+
+            // ahora comparamos el elemento de la posicion 10 con el dig. ver.
+            if (publica == true) {
+                if (digitoVerificador != d9) {
+//					JOptionPane.showMessageDialog(Motor.getVentana(),"El ruc de la empresa del sector p" + Motor.u	+ "blico es incorrecto.");
+                    numero = "";
+                    valor = false;
+                }
+                /* El ruc de las empresas del sector publico terminan con 0001 */
+                if (!numero.substring(9, longitud).equals("0001")) {
+//					JOptionPane.showMessageDialog(Motor.getVentana(),"El ruc de la empresa del sector p" + Motor.u	+ "blico debe terminar con 0001");
+                    numero = "";
+                    valor = false;
+                }
+            }
+
+            if (privada == true) {
+                if (digitoVerificador != d10) {
+//					JOptionPane.showMessageDialog(Motor.getVentana(),"El ruc de la empresa del sector privado es incorrecto.");
+                    numero = "";
+                    valor = false;
+                }
+                if (!numero.substring(10, longitud).equals("001")) {
+//					JOptionPane.showMessageDialog(Motor.getVentana(),"El ruc de la empresa del sector privado debe terminar con 001");
+                    numero = "";
+                    valor = false;
+                }
+            }
+
+            if (natural == true) {
+                if (digitoVerificador != d10) {
+//					JOptionPane.showMessageDialog(Motor.getVentana(), "El n"+ Motor.u + "mero de c" + Motor.e+ "dula de la persona natural es incorrecto.");
+                    numero = "";
+                    valor = false;
+                }
+                if (numero.length() > 10
+                        && !numero.substring(10, longitud).equals("001")) {
+//					JOptionPane.showMessageDialog(Motor.getVentana(),"El ruc de la persona natural debe terminar con 001");
+                    numero = "";
+                    valor = false;
+                }
+            }
+        } catch (Exception e) {
+            numero = "";
+            valor = false;
+        }
+        return valor;
+    }
 
     /**
      * @param args the command line arguments

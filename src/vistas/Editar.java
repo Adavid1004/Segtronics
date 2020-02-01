@@ -2,6 +2,7 @@
 package vistas;
 
 import clases.Conexion;
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -35,6 +36,8 @@ private int id=1;
          
         } catch (Exception e) {
         }
+        
+        this.getContentPane().setBackground(Color.white);
     }
 
  
