@@ -15,10 +15,7 @@ import java.awt.Graphics;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
-//import javax.swing.JComboBox;
-//import javax.swing.JFrame;
-//import javax.swing.JOptionPane;
-//import javax.swing.JTextField;
+
 import javax.swing.table.DefaultTableModel;
 
 public class NotaVenta1 extends javax.swing.JFrame implements Printable
@@ -26,12 +23,12 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
     
     int nf = -1;
     double subt = 0; //total columna final
-    
+    DefaultTableModel modelo;
+            
     public NotaVenta1() 
     {
         initComponents();
         cargarBD();   
-        setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -49,8 +46,6 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
         jcProductos = new javax.swing.JComboBox<>();
         btnAgragar = new javax.swing.JButton();
         NotadeVenta = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tbFactura = new javax.swing.JTable();
         lblEmail = new javax.swing.JLabel();
         lblNombre = new javax.swing.JLabel();
         lblCedula = new javax.swing.JLabel();
@@ -64,8 +59,6 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
         jLabel3 = new javax.swing.JLabel();
         lblNDocumento = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
@@ -78,10 +71,20 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
         lblDireccion = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbFactura = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -127,34 +130,6 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
 
         NotadeVenta.setBackground(new java.awt.Color(255, 255, 255));
 
-        tbFactura.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "CODIGO", "CANTIDAD", "PRODUCTO", "PRECIO UNITARIO", "PRECIO TOTAL"
-            }
-        ));
-        jScrollPane2.setViewportView(tbFactura);
-        if (tbFactura.getColumnModel().getColumnCount() > 0) {
-            tbFactura.getColumnModel().getColumn(3).setPreferredWidth(100);
-        }
-
         jLabel9.setText("Total");
 
         jLabel10.setText("12% IVA");
@@ -167,18 +142,18 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
             }
         });
 
-        jLabel3.setText("Numero de Documento");
+        jLabel3.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel3.setText("Nro.");
 
-        jLabel4.setText("Dirección: Tomás Ordóñez 7-32, entre Mariscal Sucre y Presidente Córdova");
+        lblNDocumento.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
+        lblNDocumento.setForeground(new java.awt.Color(204, 0, 0));
 
-        jLabel5.setText("Proveedor de sistemas de seguridad");
+        jLabel4.setText("Ventas: Tomás Ordóñez 7-32 y Presidente Córdova");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel6.setText("NOTA DE VENTA");
+        jLabel2.setText("Firma Autorizada");
 
-        jLabel2.setText("Recibi Conforme");
-
-        jLabel13.setText("Firma Autorizada");
+        jLabel13.setText("Firma del Cliente");
 
         jLabel14.setText("Nombre:");
 
@@ -192,6 +167,38 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
 
         jLabel20.setText("Telefono:");
 
+        jLabel17.setText("Telf.: 2824738 - Cel.:0983465064 - Cuenca");
+
+        jLabel21.setText("E-mail: segtronics@hotmail.com");
+
+        jLabel22.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
+        jLabel22.setText("SEGTRONICS");
+
+        jLabel23.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 15)); // NOI18N
+        jLabel23.setText("TECNOLOGIA");
+
+        jLabel24.setText("www.segtronics.net");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel6.setText("NOTA DE ENTREGA");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jLabel5.setText("NOTA: Salida la Mercaderia, no se aceptan devoluciones");
+
+        tbFactura.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Código", "Cantidad", "Producto", "Precio Unitario", "Precio Total"
+            }
+        ));
+        jScrollPane1.setViewportView(tbFactura);
+        if (tbFactura.getColumnModel().getColumnCount() > 0) {
+            tbFactura.getColumnModel().getColumn(3).setPreferredWidth(100);
+            tbFactura.getColumnModel().getColumn(4).setPreferredWidth(100);
+        }
+
         javax.swing.GroupLayout NotadeVentaLayout = new javax.swing.GroupLayout(NotadeVenta);
         NotadeVenta.setLayout(NotadeVentaLayout);
         NotadeVentaLayout.setHorizontalGroup(
@@ -202,13 +209,45 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
                         .addContainerGap()
                         .addGroup(NotadeVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(NotadeVentaLayout.createSequentialGroup()
+                                .addComponent(jLabel18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(NotadeVentaLayout.createSequentialGroup()
+                                .addGroup(NotadeVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(NotadeVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(NotadeVentaLayout.createSequentialGroup()
+                                            .addGroup(NotadeVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addGroup(NotadeVentaLayout.createSequentialGroup()
+                                                    .addComponent(jLabel5)
+                                                    .addGap(130, 130, 130)
+                                                    .addComponent(jLabel11))
+                                                .addComponent(jLabel10))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addGroup(NotadeVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(txtIVA, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(txtSubtotal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(NotadeVentaLayout.createSequentialGroup()
+                                            .addComponent(jLabel19)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(lblEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(NotadeVentaLayout.createSequentialGroup()
+                                        .addGap(46, 46, 46)
+                                        .addComponent(jLabel13)
+                                        .addGap(63, 63, 63)
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel9)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(NotadeVentaLayout.createSequentialGroup()
                                 .addGroup(NotadeVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel14)
                                     .addComponent(jLabel16))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(NotadeVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblCedula, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE))
+                                    .addComponent(lblCedula, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+                                    .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(NotadeVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(NotadeVentaLayout.createSequentialGroup()
@@ -220,94 +259,84 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
                                         .addComponent(jLabel15)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(lblFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                            .addGroup(NotadeVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(NotadeVentaLayout.createSequentialGroup()
-                                    .addComponent(jLabel9)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, NotadeVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(NotadeVentaLayout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addGroup(NotadeVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(NotadeVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(NotadeVentaLayout.createSequentialGroup()
-                                            .addComponent(jLabel3)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(lblNDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel23))
                                     .addGroup(NotadeVentaLayout.createSequentialGroup()
+                                        .addComponent(jLabel24)
+                                        .addGap(20, 20, 20)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(NotadeVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NotadeVentaLayout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addGap(20, 20, 20))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NotadeVentaLayout.createSequentialGroup()
                                         .addGroup(NotadeVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel11)
+                                            .addComponent(jLabel17)
                                             .addGroup(NotadeVentaLayout.createSequentialGroup()
-                                                .addGroup(NotadeVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                    .addGroup(NotadeVentaLayout.createSequentialGroup()
-                                                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addGap(18, 18, 18)
-                                                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addGap(54, 54, 54))
-                                                    .addGroup(NotadeVentaLayout.createSequentialGroup()
-                                                        .addGap(19, 19, 19)
-                                                        .addComponent(jLabel13)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(jLabel2)
-                                                        .addGap(67, 67, 67)))
-                                                .addComponent(jLabel10)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(NotadeVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtIVA, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
-                                            .addComponent(txtSubtotal, javax.swing.GroupLayout.Alignment.TRAILING)))))))
+                                                .addComponent(jLabel21)
+                                                .addGap(26, 26, 26)))
+                                        .addGap(41, 41, 41))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NotadeVentaLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(NotadeVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NotadeVentaLayout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addGap(90, 90, 90))
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblNDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(NotadeVentaLayout.createSequentialGroup()
-                        .addGap(192, 192, 192)
-                        .addComponent(jLabel6)
+                        .addGap(39, 39, 39)
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(NotadeVentaLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(NotadeVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(NotadeVentaLayout.createSequentialGroup()
-                                .addComponent(jLabel18)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(NotadeVentaLayout.createSequentialGroup()
-                                .addComponent(jLabel19)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                        .addComponent(jScrollPane1)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NotadeVentaLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(NotadeVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NotadeVentaLayout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(151, 151, 151))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NotadeVentaLayout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(52, 52, 52))))
         );
         NotadeVentaLayout.setVerticalGroup(
             NotadeVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NotadeVentaLayout.createSequentialGroup()
-                .addContainerGap(128, Short.MAX_VALUE)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addGap(14, 14, 14)
-                .addComponent(jLabel6)
+                .addGroup(NotadeVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(NotadeVentaLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel17)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel21))
+                    .addGroup(NotadeVentaLayout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(jLabel22)
+                        .addGap(1, 1, 1)
+                        .addComponent(jLabel23)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel24)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addGroup(NotadeVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNDocumento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(NotadeVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel6)
+                        .addComponent(jLabel3)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(NotadeVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel15)
+                    .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(NotadeVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(lblNDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel16)
+                    .addComponent(lblCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel20)
+                    .addComponent(lblTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(NotadeVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NotadeVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(NotadeVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel16)
-                            .addComponent(jLabel20)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NotadeVentaLayout.createSequentialGroup()
-                        .addGroup(NotadeVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel14)
-                            .addComponent(jLabel15)
-                            .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(23, 23, 23)))
                 .addGroup(NotadeVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -315,29 +344,27 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
                 .addGroup(NotadeVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel19)
                     .addComponent(lblEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(NotadeVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
                 .addGap(18, 18, 18)
+                .addGroup(NotadeVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(txtIVA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3)
                 .addGroup(NotadeVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(NotadeVentaLayout.createSequentialGroup()
-                        .addGroup(NotadeVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel10)
-                            .addComponent(txtIVA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(NotadeVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
-                            .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(NotadeVentaLayout.createSequentialGroup()
-                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(2, 2, 2)
-                        .addGroup(NotadeVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel13)))
+                    .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(NotadeVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel13))
                 .addContainerGap())
         );
 
@@ -348,10 +375,17 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
             }
         });
 
-        jButton2.setText("Vover Menu Principal");
+        jButton2.setText("Eliminar Producto");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Vover Menu Principal");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
             }
         });
 
@@ -360,55 +394,52 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addGap(116, 116, 116))
+                    .addComponent(jSeparator1)
+                    .addComponent(jSeparator2)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtCedulaF, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(btnBuscarcl)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnRegistrarcl)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(37, 37, 37)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnAgragar)
                             .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtCedulaF, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnBuscarcl)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnRegistrarcl))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(49, 49, 49)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnAgragar)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel8)
-                                            .addComponent(jLabel12))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jcProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtCantidadF, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(105, 105, 105)
-                                .addComponent(jLabel7)))
-                        .addGap(0, 5, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel12))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jcProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtCantidadF, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(93, 93, 93)
+                        .addComponent(jLabel7))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(79, 79, 79)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator1)
-                            .addComponent(jSeparator2)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jButton2)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addGap(26, 26, 26))))
+                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(NotadeVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(NotadeVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
@@ -434,32 +465,31 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
                         .addGap(23, 23, 23)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(NotadeVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
     private void btnRegistrarclActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarclActionPerformed
-        new Clientes1().setVisible(true);
+        new Clientes().setVisible(true);
     }//GEN-LAST:event_btnRegistrarclActionPerformed
 
     private void btnBuscarclActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarclActionPerformed
         
         String str = txtCedulaF.getText();
         try {
-            DefaultTableModel modelo = new DefaultTableModel();
+            /*DefaultTableModel*/ modelo = new DefaultTableModel();
             modelo.addColumn("ID");
             modelo.addColumn("NOMBRE");
             modelo.addColumn("IDENTIFICACION");
             modelo.addColumn("DIRECCION");
-            modelo.addColumn("TELEFONO");
+            modelo.addColumn("TELEFONO"); 
             modelo.addColumn("EMAIL");
 
             String []dato =new String[6];
@@ -477,7 +507,7 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
                     dato[4]=rs.getString(5);
                     dato[5]=rs.getString(6); 
                     modelo.addRow(dato);
-                    
+ 
                     Calendar c = Calendar.getInstance();
                     
                     String dia = Integer.toString(c.get(Calendar.DATE));
@@ -493,13 +523,13 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
                         lblEmail.setText(dato[5]);
                         lblFecha.setText("Cuenca, "+dia+" / "+mes+" / "+ano);
                     }
-                }          
+                }        
         } catch (Exception e) 
-            {}
+            {} 
         
         // Agregar el número de documento
         try {
-            DefaultTableModel modelo = new DefaultTableModel();
+            /*DefaultTableModel*/ modelo = new DefaultTableModel();
             modelo.addColumn("NUMERODOCUMENTO");
             String []dato1 =new String[2];
             
@@ -547,6 +577,11 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
     }//GEN-LAST:event_jcProductosActionPerformed
 
     private void btnAgragarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgragarActionPerformed
+        modelo = (DefaultTableModel) tbFactura.getModel();
+        String[] ff = {"", "", "", "", ""}; // Cantidad de columnas de la tabla
+        modelo.addRow(ff); 
+
+        
         double pru = 0; //precio unitario
         double totalp = 0; //precio total del producto
         double iva = 0;
@@ -556,32 +591,36 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
         String pro; // Producto
         nf++; //Agregar datos en una nueva fila de la tabla
         String clc;
+        
 
         can = txtCantidadF.getText();
-        pro = (String) jcProductos.getSelectedItem();
+        pro = (String) jcProductos.getSelectedItem();    
 
         try {           
-            DefaultTableModel modelo = new DefaultTableModel();
+            modelo = new DefaultTableModel();
           
+            modelo.addColumn("CODIGO");  
             modelo.addColumn("CANTIDAD");
             modelo.addColumn("PRODUCTO");
-            modelo.addColumn("PRECIO");
-            modelo.addColumn("CODIGO");  
+            modelo.addColumn("PRECIO UNITARIO");
+            modelo.addColumn("PRECIO TOTAL");
             
-            String []dato =new String[5]; 
-
+            
+            String []dato =new String[4]; 
+            
             Connection cn = Conexion.conectar();
             PreparedStatement pst = cn.prepareStatement("select cantidad CANTIDAD, producto PRODUCTO, precio PRECIO, codigo CODIGO from inventario");
-            ResultSet rs = pst.executeQuery();      
+            ResultSet rs = pst.executeQuery();   
             
             while(rs.next())
-                {
-                    dato[0]=can;
-                    dato[1]=rs.getString(2); 
-                    dato[2]=rs.getString(3);
-                    dato[3]=rs.getString(4);                  
-                    dato[4]=rs.getString(1);                    
+                {   
                     
+                    dato[3]=rs.getString(4); //codigos
+                    dato[0]=can; //Cantidad ingresada
+                    dato[1]=rs.getString(2); //Productos
+                    dato[2]=rs.getString(3); //precio unitario           
+                    //modelo.addRow(dato);
+
                     if(dato[1].equals(pro))
                     {
                         /*clc = (dato[4]);
@@ -590,22 +629,20 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
                         {
                             JOptionPane.showMessageDialog(null, "La cantidad ingresada supara la existente");
                         }*/
-                        
+                                                
                         pru = Integer.parseInt(dato[2]);//Cuarta columna
                         totalp = pru * Integer.parseInt(can);//Quinta columna;
                         codigo = dato[3]; //Primera Columna
-                        
+                                                                       
                         tbFactura.setValueAt(codigo, nf, 0);        
                         tbFactura.setValueAt(pro, nf, 2);        
                         tbFactura.setValueAt(can, nf, 1);    
                         tbFactura.setValueAt(pru, nf, 3);                   
                         tbFactura.setValueAt(totalp, nf, 4); 
-                    }
-                        this.txtCantidadF.setText("");
-                }   
-
-                modelo.addRow(dato);
-            
+                    }  
+                    this.txtCantidadF.setText("");
+                }
+                                        
                 subt = subt + totalp;
                 txtSubtotal.setText(String.valueOf(subt));
                
@@ -617,6 +654,7 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
                 
         } catch (Exception e) 
             {}
+        //modelo.addRow(new Object[]{"", "", "", "", ""}); 
     }//GEN-LAST:event_btnAgragarActionPerformed
 
     private void txtTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalActionPerformed
@@ -629,15 +667,6 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        // Borrar datos del cliente en la nota de venta realizada
-        this.txtIVA.setText("");
-        this.txtSubtotal.setText("");
-        this.txtCedulaF.setText("");
-        this.lblDireccion.setText("");
-        this.lblEmail.setText("");
-        this.lblNombre.setText("");
-        this.lblTelefono.setText("");
-        
         try {
             Connection cn = Conexion.conectar();
             PreparedStatement pst = cn.prepareStatement("insert into notaventa values(?,?,?,?,?)");
@@ -648,64 +677,105 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
             pst.setString(4, lblFecha.getText());
             pst.setString(5, txtTotal.getText());
             
-            lblNDocumento.setText("");
-            lblCedula.setText("");
-            lblFecha.setText("");
-            txtTotal.setText("");
-            
             JOptionPane.showMessageDialog(null, "Nota de Venta guardada en la Base de Datos");
             pst.executeUpdate();
-        } catch (Exception e) {
-        }
+        } catch (Exception e)
+            {}
         
         try 
         {
-            PrinterJob gap = PrinterJob.getPrinterJob();
-            gap.setPrintable(this);
-            boolean top = gap.printDialog();
-            
-            if(top)
+            for (int i = 0; i < tbFactura.getRowCount(); i++)
             {
-                gap.print();
+                Connection cn = Conexion.conectar();
+                PreparedStatement pst = cn.prepareStatement("insert into registroventas (fecha, numeroCedula, numeroDocumento, productos, precioUnitario) values(?,?,?,?,?)");
+                
+                pst.setString(1, lblFecha.getText());
+                pst.setString(2, lblCedula.getText());
+                pst.setString(3, lblNDocumento.getText());
+                pst.setString(4, tbFactura.getValueAt(i, 2).toString());
+                pst.setString(5, tbFactura.getValueAt(i, 3).toString());
+
+                pst.executeUpdate();
+                
             }
-            
-        } catch (PrinterException pex) 
+        } catch (Exception e) 
+            {}JOptionPane.showMessageDialog(null, "124567890");
+        
+        try 
         {
-            JOptionPane.showMessageDialog(null, "Error en el programa o la impresión","Erro\n"+pex,JOptionPane.INFORMATION_MESSAGE);
+            PrinterJob job = PrinterJob.getPrinterJob(); //crea un trabajo de impresion que se asocia con la impresora predeterminada
+            job.setPrintable(this);//Se pasa la instancia del Formulario (JFrame)
+            boolean x = job.printDialog();//Se Abre el dialogo Para Imprimir
+            if (x == true)
+            {
+                job.print();
+            }    
+            else
+            {
+                //Se canceló la impresión
+            }    
+        } 
+        catch (PrinterException ex) 
+        {
+            JOptionPane.showMessageDialog(null, "No Se Logró Imprimir Por El Siguiente Motivo" + ex);
         }
+        
+        this.txtIVA.setText("");
+        this.txtSubtotal.setText("");
+        this.txtCedulaF.setText("");
+        this.lblDireccion.setText("");
+        this.lblEmail.setText("");
+        this.lblNombre.setText("");
+        this.lblTelefono.setText("");
+        this.lblNDocumento.setText("");
+        this.lblCedula.setText("");
+        this.lblFecha.setText("");
+        this.txtTotal.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
+    modelo = (DefaultTableModel) tbFactura.getModel();
+    
+    if(tbFactura.getSelectedRow() != -1)
+        {
+            modelo.removeRow(tbFactura.getSelectedRow());
+            nf = nf+tbFactura.getSelectedRow();  
+        }
 
-               Login lg = new Login();
-              String Usuario = lg.user;
-        
-                try {
-                Connection cn = Conexion.conectar();
-                
-                PreparedStatement pst=cn.prepareStatement("Select nivel,estatus from usuarios where username='"+Usuario+"'");
-                ResultSet rs=pst.executeQuery();
-                
-                if(rs.next()){
-                    String tipo_nivel=rs.getString("nivel");
-                    String estatus=rs.getString("estatus");
-                    
-                    
-                    if(tipo_nivel.equalsIgnoreCase("Administrador") && estatus.equalsIgnoreCase("Activo")){
+
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+
+        Login lg = new Login();
+        String Usuario = lg.user;
+
+        try {
+            Connection cn = Conexion.conectar();
+
+            PreparedStatement pst=cn.prepareStatement("Select nivel,estatus from usuarios where username='"+Usuario+"'");
+            ResultSet rs=pst.executeQuery();
+
+            if(rs.next()){
+                String tipo_nivel=rs.getString("nivel");
+                String estatus=rs.getString("estatus");
+
+                if(tipo_nivel.equalsIgnoreCase("Administrador") && estatus.equalsIgnoreCase("Activo")){
                     dispose();
                     new MenuAdmin().setVisible(true);
-                    }else if(tipo_nivel.equalsIgnoreCase("Empleado") && estatus.equalsIgnoreCase("Activo")){
-                      dispose();
-                      new MenuUsuario().setVisible(true);
-                    }
+                }else if(tipo_nivel.equalsIgnoreCase("Empleado") && estatus.equalsIgnoreCase("Activo")){
+                    dispose();
+                    new MenuUsuario().setVisible(true);
                 }
-                
-            } catch (Exception e) {
             }
+
+        } catch (Exception e) {
+        }
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
-         
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -732,6 +802,10 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -748,6 +822,7 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
     private javax.swing.JButton btnRegistrarcl;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -756,10 +831,15 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -767,7 +847,7 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
@@ -789,20 +869,17 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public int print(Graphics graf, PageFormat pagefor, int index) throws PrinterException 
-    {
-        if(index>=0)
+    public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
+        if (pageIndex == 0)
         {
-            return NO_SUCH_PAGE;
-        }
-        
-        Graphics2D hub=(Graphics2D) graf;
-        hub.translate(pagefor.getImageableX()+30, pagefor.getImageableY()+30);
-        hub.scale(1.0, 1.0);
-        //hub.scale(2.0, 2.0); Ampliar
-        //hub.scale(0.5, 0.5); Reducir
-        NotadeVenta.printAll(graf);
-        
-        return PAGE_EXISTS;
+            Graphics2D g2d = (Graphics2D) graphics;
+            g2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
+            NotadeVenta.printAll(graphics);
+            return PAGE_EXISTS;
+        }    
+        else
+        {
+            return NO_SUCH_PAGE;     
+        }    
     }
-  }
+}
