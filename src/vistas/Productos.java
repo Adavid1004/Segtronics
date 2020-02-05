@@ -2,7 +2,6 @@
 package vistas;
 
 import clases.Conexion;
-import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,12 +10,45 @@ import javax.swing.JOptionPane;
 
 
 public class Productos extends javax.swing.JFrame {
-
+    
+    Inventario c = new Inventario();
+    boolean productos = c.update;
+    
     public Productos() {
+        
         initComponents();
         setLocationRelativeTo(null);
+        if (productos == true){
 
-            this.getContentPane().setBackground(Color.white);
+            this.btnIngresar.setText("Ingresar");           
+        }else{
+            this.lvlNuevoProducto.setText("Editar Producto");
+            this.btnIngresar.setText("Actualizar");
+            try {
+        Connection cn = Conexion.conectar();
+            
+            String ID = c.ID;
+            System.out.println(c.ID);
+            PreparedStatement pst =cn.prepareStatement("select * from inventario where id_inventario= ?");
+            pst.setString(1,ID.trim());
+            ResultSet rs = pst.executeQuery();
+        
+        
+                   if (rs.next()){
+                    txtProducto.setText(rs.getString("producto"));
+                    txtCantidad.setText(rs.getString("cantidad"));
+                    txtPrecio.setText(rs.getString("precio"));
+                    txtCodigo.setText(rs.getString("codigo"));
+                       
+            }else{
+                    JOptionPane.showMessageDialog(null, "Datos no encontrados");
+                    dispose();
+            }
+         
+        } catch (Exception e) {
+        }
+        }
+
     }
 
  
@@ -203,6 +235,8 @@ if(!txtCantidad.equals("") && !txtCodigo.equals("") && !txtPrecio.equals("") && 
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Productos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
