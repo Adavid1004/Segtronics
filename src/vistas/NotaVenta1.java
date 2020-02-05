@@ -695,7 +695,7 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
         } catch (Exception e)
             {}
         
-        try 
+        try //subir contenido de la tabla
         {
             for (int i = 0; i < tbFactura.getRowCount(); i++)
             {
@@ -714,6 +714,7 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
         } catch (Exception e) 
             {}JOptionPane.showMessageDialog(null, "124567890");
         
+            //Impresion
         try 
         {
             PrinterJob job = PrinterJob.getPrinterJob(); //crea un trabajo de impresion que se asocia con la impresora predeterminada
