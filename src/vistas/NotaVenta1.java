@@ -27,7 +27,7 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
             
     public NotaVenta1() 
     {
-        setLocationRelativeTo(null);
+       
         initComponents();
         cargarBD();   
     }
@@ -111,6 +111,7 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
 
         jLabel12.setText("Cantidad");
 
+        jcProductos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Seleccione un Producto-" }));
         jcProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcProductosActionPerformed(evt);
@@ -188,7 +189,7 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
 
         tbFactura.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "Cantidad", "Producto", "Precio Unitario", "Precio Total"
@@ -399,15 +400,6 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1)
                     .addComponent(jSeparator2)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtCedulaF, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(btnBuscarcl)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnRegistrarcl)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(37, 37, 37)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -418,19 +410,31 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
                                     .addComponent(jLabel12))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jcProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtCantidadF, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(txtCantidadF, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jcProductos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(93, 93, 93)
-                        .addComponent(jLabel7))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(79, 79, 79)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addGap(26, 26, 26))))
-                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtCedulaF, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(btnBuscarcl)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btnRegistrarcl)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(93, 93, 93)
+                                .addComponent(jLabel7))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(79, 79, 79)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton2)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jButton1)
+                                        .addGap(26, 26, 26)))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(NotadeVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -559,7 +563,7 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
             PreparedStatement pst;
             pst = cn.prepareStatement("select producto from inventario");
             ResultSet rs = pst.executeQuery("select producto from inventario");   
-            jcProductos.removeAllItems();
+            //jcProductos.removeAllItems();
             
             while(rs.next())
             {
@@ -578,6 +582,9 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
     }//GEN-LAST:event_jcProductosActionPerformed
 
     private void btnAgragarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgragarActionPerformed
+        if (!jcProductos.getSelectedItem().equals("-Seleccione un Producto-") && !txtCantidadF.getText().equals("")) {
+              
+        
         modelo = (DefaultTableModel) tbFactura.getModel();
         String[] ff = {"", "", "", "", ""}; // Cantidad de columnas de la tabla
         modelo.addRow(ff); 
@@ -655,6 +662,11 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
                 
         } catch (Exception e) 
             {}
+        }else{
+        JOptionPane.showMessageDialog(null, "Necesita seleccionar un producto y clocar una cantidad para agregar a la nota de venta");
+        }
+        
+      
         //modelo.addRow(new Object[]{"", "", "", "", ""}); 
     }//GEN-LAST:event_btnAgragarActionPerformed
 
