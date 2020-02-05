@@ -27,6 +27,7 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
             
     public NotaVenta1() 
     {
+        setLocationRelativeTo(null);
         initComponents();
         cargarBD();   
     }

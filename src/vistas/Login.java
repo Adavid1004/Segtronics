@@ -22,8 +22,6 @@ String pass ="";
         ImageIcon s1= new ImageIcon(getClass().getResource("/icons/usupasw.png"));
         ImageIcon icono1 = new ImageIcon(s1.getImage().getScaledInstance(60,60, Image.SCALE_DEFAULT));
          jLabel4.setIcon(icono1);
-         
-         this.getContentPane().setBackground(Color.white);
     }
 
     @SuppressWarnings("unchecked")
@@ -174,6 +172,8 @@ String pass ="";
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
