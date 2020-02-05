@@ -1,4 +1,3 @@
-
 package vistas;
 
 import clases.Conexion;
@@ -7,12 +6,23 @@ import java.awt.Color;
 import java.sql.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import javax.swing.JOptionPane;
 
+import javax.swing.JOptionPane;
+import java.util.UUID;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 public class Administrador extends javax.swing.JFrame {
 
-   
     public Administrador() {
         initComponents();
         setLocationRelativeTo(null);
@@ -20,7 +30,7 @@ public class Administrador extends javax.swing.JFrame {
         comboEstado.addItem("Inactivo");
         comboNivel.addItem("Administrador");
         comboNivel.addItem("Empleado");
-        
+
         this.getContentPane().setBackground(Color.white);
     }
 
@@ -247,12 +257,15 @@ public class Administrador extends javax.swing.JFrame {
     }//GEN-LAST:event_comboEstadoActionPerformed
 
     private void btnIngresarUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarUActionPerformed
-            GestionDatos modSql = new GestionDatos();
-            String cedula;;
+        GestionDatos modSql = new GestionDatos();
+        String cedula;;
+        String nombre;
+        String a = "";
+        String b = "";
         try {
             Connection cn = Conexion.conectar();
             PreparedStatement pst = cn.prepareStatement("insert into usuarios values(?,?,?,?,?,?,?,?,?,?)");
-            
+
             pst.setString(1, "0");
             pst.setString(2, txtNombreU.getText());
             pst.setString(3, txtCedula.getText());
@@ -260,47 +273,86 @@ public class Administrador extends javax.swing.JFrame {
             pst.setString(5, txtTelefono.getText());
             pst.setString(6, txtUsernameU.getText());
             pst.setString(7, txtpassword.getText());
+            a = txtUsernameU.getText();
+            b = txtpassword.getText();
             pst.setString(8, String.valueOf(comboNivel.getSelectedItem()));
             pst.setString(9, String.valueOf(comboEstado.getSelectedItem()));
             pst.setString(10, txtRegistradoU.getText());
-            
-            
-            if(txtCedula.getText().equals("") || txtMail.getText().equals("") || txtNombreU.getText().equals("") || txtTelefono.getText().equals("") || txtUsernameU.getText().equals("") || txtpassword.getText().equals("")){
-                     
+
+            if (txtCedula.getText().equals("") || txtMail.getText().equals("") || txtNombreU.getText().equals("") || txtTelefono.getText().equals("") || txtUsernameU.getText().equals("") || txtpassword.getText().equals("")) {
+
                 JOptionPane.showMessageDialog(null, "Existen campos vacios");
-            
-            }else{
-                if(modSql.ExisteUsuario(txtCedula.getText())==0){
-                if (modSql.esEmail(txtMail.getText())) {
-                if(validarDocumento(cedula=txtCedula.getText())==true){
-                txtNombreU.setText("");
-                txtCedula.setText("");
-                txtMail.setText("");
-                txtTelefono.setText("");
-                txtUsernameU.setText("");
-                txtpassword.setText("");
-                txtRegistradoU.setText("");
-                JOptionPane.showMessageDialog(null, "Registro guardado en la Base de Datos");
-            pst.executeUpdate();
-                }else{
-                JOptionPane.showMessageDialog(null, "Cedula Incorrecta");
+
+            } else {
+                if (modSql.ExisteUsuario(txtCedula.getText()) == 0) {
+
+                    if (modSql.esEmail(txtMail.getText())) {
+
+                        if (validarDocumento(cedula = txtCedula.getText()) == true) {
+                            if (modSql.ExisteUsername(txtUsernameU.getText()) == 0) {
+                                Properties propiedades = new Properties();
+                                propiedades.setProperty("mail.smtp.host", "smtp.gmail.com");
+                                propiedades.setProperty("mail.smtp.starttls.enable", "true");
+                                propiedades.setProperty("mail.smtp.port", "587");
+                                propiedades.setProperty("mail.smtp.auth", "true");
+
+                                Session sesion = Session.getDefaultInstance(propiedades);
+
+                                String correoEnviado = "anddychunagta@gmail.com";
+                                String contrasena = "anddy1004";
+                                String destinatario = txtMail.getText();
+                                String asunto = "SOFTWARE F1 SOLUCIONES";
+                                String mensaje = txtpassword.getText();
+
+                                MimeMessage mail = new MimeMessage(sesion);
+
+                                try {
+                                    mail.setFrom(new InternetAddress(correoEnviado));
+                                    mail.addRecipient(Message.RecipientType.TO, new InternetAddress(destinatario));
+                                    mail.setSubject(asunto);
+                                    mail.setText(mensaje);
+
+                                    Transport transporte = sesion.getTransport("smtp");
+
+                                    transporte.connect(correoEnviado, contrasena);
+                                    transporte.sendMessage(mail, mail.getRecipients(Message.RecipientType.TO));
+                                    transporte.close();
+                                    JOptionPane.showMessageDialog(null, "Correo enviando con exito");
+
+                                } catch (AddressException ex) {
+                                    Logger.getLogger(Administrador.class.getName()).log(Level.SEVERE, null, ex);
+                                } catch (MessagingException ex) {
+                                    Logger.getLogger(Administrador.class.getName()).log(Level.SEVERE, null, ex);
+
+                                }
+                                txtNombreU.setText("");
+                                txtCedula.setText("");
+                                txtMail.setText("");
+                                txtTelefono.setText("");
+                                txtUsernameU.setText("");
+                                txtpassword.setText("");
+                                txtRegistradoU.setText("");
+
+                                JOptionPane.showMessageDialog(null, "Registro guardado en la Base de Datos");
+                                pst.executeUpdate();
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Username ya en uso");
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Cedula Incorrecta");
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Correo Incorrecto");
+
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Usuario ya existe");
                 }
-                }else{
-                JOptionPane.showMessageDialog(null, "Correo Incorrecto");
-                
-                }
-            }else{
-                JOptionPane.showMessageDialog(null, "Usuario ya existe");
-                }
-            
+
             }
-            
+
         } catch (Exception e) {
         }
-        
-
-
-
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btnIngresarUActionPerformed
@@ -310,21 +362,20 @@ public class Administrador extends javax.swing.JFrame {
     }//GEN-LAST:event_comboNivelActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-            
-            new MenuAdmin().setVisible(true);
-            dispose();
 
+        new MenuAdmin().setVisible(true);
+        dispose();
 
         // TODO add your handling code here:
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void txtNombreUKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreUKeyTyped
-        char validar =evt.getKeyChar();
-             if (Character.isDigit(validar)) {
-                 getToolkit().beep();
-                 evt.consume();
-             }
-        
+        char validar = evt.getKeyChar();
+        if (Character.isDigit(validar)) {
+            getToolkit().beep();
+            evt.consume();
+        }
+
 // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreUKeyTyped
 
@@ -334,29 +385,28 @@ public class Administrador extends javax.swing.JFrame {
 
     private void txtCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyTyped
 
-        char validar =evt.getKeyChar();
-             if (Character.isLetter(validar)) {
-                 getToolkit().beep();
-                 evt.consume();
-            
-             }
+        char validar = evt.getKeyChar();
+        if (Character.isLetter(validar)) {
+            getToolkit().beep();
+            evt.consume();
+
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCedulaKeyTyped
 
     private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
-        
-        char validar =evt.getKeyChar();
-             if (Character.isLetter(validar)) {
-                 getToolkit().beep();
-                 evt.consume();
-            
-             }
 
+        char validar = evt.getKeyChar();
+        if (Character.isLetter(validar)) {
+            getToolkit().beep();
+            evt.consume();
+
+        }
 
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTelefonoKeyTyped
 
-     private boolean validarDocumento(String numero) {
+    private boolean validarDocumento(String numero) {
         boolean valor = true;
         try {
             int suma = 0;

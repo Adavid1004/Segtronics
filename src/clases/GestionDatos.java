@@ -80,6 +80,37 @@ public class GestionDatos extends Conexion {
         return mather.find();
 
     }
+    
+     public int ExisteUsername(String Nombre) {
+
+        PreparedStatement pst = null;
+        Connection cn = Conexion.conectar();
+        ResultSet rs = null;
+
+        String sql = "SELECT count(id_usuarios) FROM usuarios where username=?";
+
+        try {
+            pst = cn.prepareStatement(sql);
+            pst.setString(1, Nombre);
+            rs = pst.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+            return 1;
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.toString());
+            return 1;
+        } finally {
+            try {
+                cn.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e.toString());
+            }
+        }
+
+    }
 
   
 }

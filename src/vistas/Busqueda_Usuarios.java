@@ -4,6 +4,16 @@ import clases.Conexion;
 import clases.GestionDatos;
 import java.awt.Color;
 import java.sql.*;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -388,8 +398,10 @@ public class Busqueda_Usuarios extends javax.swing.JFrame {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         GestionDatos modSql = new GestionDatos();
-            String cedula;;
-        
+        String cedula;
+        String a = "";
+        String b = "";
+
         try {
 
             String id = txtBusqueUsu.getText();
@@ -401,38 +413,82 @@ public class Busqueda_Usuarios extends javax.swing.JFrame {
             pst.setString(4, txtTelefono.getText().trim());
             pst.setString(5, txtusername.getText().trim());
             pst.setString(6, txtPassword.getText().trim());
+            a = txtusername.getText();
+            b = txtPassword.getText();
             pst.setString(7, String.valueOf(comboNivel.getSelectedItem()).trim());
             pst.setString(8, String.valueOf(comboEstado.getSelectedItem()).trim());
-            
-            if(txtCedula.getText().equals("") || txtMail.getText().equals("") || txtNombreU.getText().equals("") || txtTelefono.getText().equals("") || txtusername.getText().equals("") || txtPassword.getText().equals("")){
-                     
+
+            if (txtCedula.getText().equals("") || txtMail.getText().equals("") || txtNombreU.getText().equals("") || txtTelefono.getText().equals("") || txtusername.getText().equals("") || txtPassword.getText().equals("")) {
+
                 JOptionPane.showMessageDialog(null, "Existen campos vacios");
-            
-            }else{
-                if(modSql.ExisteUsuario(txtCedula.getText())==0){
-                if (modSql.esEmail(txtMail.getText())) {
-                if(validarDocumento(cedula=txtCedula.getText())==true){
-                txtNombreU.setText("");
-                txtCedula.setText("");
-                txtMail.setText("");
-                txtTelefono.setText("");
-                txtusername.setText("");
-                txtPassword.setText("");
-                JOptionPane.showMessageDialog(null, "Registro guardado en la Base de Datos");
-            pst.executeUpdate();
-                }else{
-                JOptionPane.showMessageDialog(null, "Cedula Incorrecta");
+
+            } else {
+                if (modSql.ExisteUsuario(txtCedula.getText()) == 0) {
+                    if (modSql.esEmail(txtMail.getText())) {
+                        if (validarDocumento(cedula = txtCedula.getText()) == true) {
+                            if (modSql.ExisteUsername(txtusername.getText()) == 0) {
+
+                                Properties propiedades = new Properties();
+                                propiedades.setProperty("mail.smtp.host", "smtp.gmail.com");
+                                propiedades.setProperty("mail.smtp.starttls.enable", "true");
+                                propiedades.setProperty("mail.smtp.port", "587");
+                                propiedades.setProperty("mail.smtp.auth", "true");
+
+                                Session sesion = Session.getDefaultInstance(propiedades);
+
+                                String correoEnviado = "anddychunagta@gmail.com";
+                                String contrasena = "anddy1004";
+                                String destinatario = txtMail.getText();
+                                String asunto = "SOFTWARE F1 SOLUCIONES";
+                                String mensaje = txtPassword.getText();
+
+                                MimeMessage mail = new MimeMessage(sesion);
+
+                                try {
+                                    mail.setFrom(new InternetAddress(correoEnviado));
+                                    mail.addRecipient(Message.RecipientType.TO, new InternetAddress(destinatario));
+                                    mail.setSubject(asunto);
+                                    mail.setText(mensaje);
+
+                                    Transport transporte = sesion.getTransport("smtp");
+
+                                    transporte.connect(correoEnviado, contrasena);
+                                    transporte.sendMessage(mail, mail.getRecipients(Message.RecipientType.TO));
+                                    transporte.close();
+                                    JOptionPane.showMessageDialog(null, "Correo enviando con exito");
+
+                                } catch (AddressException ex) {
+                                    Logger.getLogger(Administrador.class.getName()).log(Level.SEVERE, null, ex);
+                                } catch (MessagingException ex) {
+                                    Logger.getLogger(Administrador.class.getName()).log(Level.SEVERE, null, ex);
+
+                                }
+                                txtNombreU.setText("");
+                                txtCedula.setText("");
+                                txtMail.setText("");
+                                txtTelefono.setText("");
+                                txtusername.setText("");
+                                txtPassword.setText("");
+
+                                JOptionPane.showMessageDialog(null, "Registro guardado en la Base de Datos");
+                                pst.executeUpdate();
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Username ya en uso");
+
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Cedula Incorrecta");
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Correo Incorrecto");
+
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Usuario ya existe");
                 }
-                }else{
-                JOptionPane.showMessageDialog(null, "Correo Incorrecto");
-                
-                }
-            }else{
-                JOptionPane.showMessageDialog(null, "Usuario ya existe");
-                }
-            
+
             }
-            
+
         } catch (Exception e) {
         }
 
