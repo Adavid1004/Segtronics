@@ -18,7 +18,7 @@ public class Productos extends javax.swing.JFrame {
         
         initComponents();
         setLocationRelativeTo(null);
-        if (productos == true){
+        if (productos == false){
 
             this.btnIngresar.setText("Ingresar");           
         }else{
@@ -163,7 +163,9 @@ public class Productos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-if(!txtCantidad.equals("") && !txtCodigo.equals("") && !txtPrecio.equals("") && !txtProducto.equals("")){
+
+        if (productos == false) {
+             if(!txtCantidad.equals("") && !txtCodigo.equals("") && !txtPrecio.equals("") && !txtProducto.equals("")){
     try {
             Connection cn = Conexion.conectar();
             PreparedStatement pst = cn.prepareStatement("insert into inventario values(?,?,?,?,?)");
@@ -188,9 +190,29 @@ if(!txtCantidad.equals("") && !txtCodigo.equals("") && !txtPrecio.equals("") && 
             
         } catch (Exception e) {
         }
+    
 }else {
     JOptionPane.showMessageDialog(null, "Aviso: Debe llenar todos los campos");
 }
+        }
+        else{
+            try {
+            Connection cn1 = Conexion.conectar();
+            PreparedStatement pst1 = cn1.prepareStatement("Select id_inventario from inventario where codigo = '"+txtCodigo.getText()+"'");
+            ResultSet rs = pst1.executeQuery();
+            String ID= rs.getString("id_inventario");
+            Connection cn = Conexion.conectar();
+            PreparedStatement pst = cn.prepareStatement("update inventario set producto = ?, cantidad = ?, precio =? , codigo = ? where id_inventario ='"+ID+"'");
+        
+            } catch (Exception e) {
+            }
+            }
+        
+        
+        
+        
+        
+       
         
             
       
