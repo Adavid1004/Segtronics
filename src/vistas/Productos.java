@@ -81,6 +81,7 @@ public class Productos extends javax.swing.JFrame {
 
         lblCodigo.setText("Código:");
 
+        txtCantidad.setEditable(false);
         txtCantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCantidadActionPerformed(evt);
