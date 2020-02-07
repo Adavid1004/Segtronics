@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 
 
 public class Productos extends javax.swing.JFrame {
-    
+     String IDs;
     Inventario c = new Inventario();
     boolean productos = c.update;
     
@@ -27,10 +27,10 @@ public class Productos extends javax.swing.JFrame {
             try {
         Connection cn = Conexion.conectar();
             
-            String ID = c.ID;
+            IDs = c.ID;
             System.out.println(c.ID);
             PreparedStatement pst =cn.prepareStatement("select * from inventario where id_inventario= ?");
-            pst.setString(1,ID.trim());
+            pst.setString(1,IDs.trim());
             ResultSet rs = pst.executeQuery();
         
         
@@ -164,63 +164,46 @@ public class Productos extends javax.swing.JFrame {
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
 
-        if (productos == false) {
+    if (productos == false) {
              if(!txtCantidad.equals("") && !txtCodigo.equals("") && !txtPrecio.equals("") && !txtProducto.equals("")){
-    try {
+            try {
             Connection cn = Conexion.conectar();
             PreparedStatement pst = cn.prepareStatement("insert into inventario values(?,?,?,?,?)");
-            
             pst.setString(1, "0");
             pst.setString(2, txtProducto.getText());
             pst.setString(3, txtCantidad.getText());
             pst.setString(4, txtPrecio.getText());
             pst.setString(5, txtCodigo.getText());
-            
-            
-            
             txtProducto.setText("");
             txtCantidad.setText("");
             txtPrecio.setText("");
             txtCodigo.setText("");
-            
-            
             JOptionPane.showMessageDialog(null, "Registro guardado en la Base de Datos");
             pst.executeUpdate();
-            
-            
-        } catch (Exception e) {
-        }
+            } catch (Exception e) {
+            }
     
-}else {
-    JOptionPane.showMessageDialog(null, "Aviso: Debe llenar todos los campos");
-}
+            }else {
+            JOptionPane.showMessageDialog(null, "Aviso: Debe llenar todos los campos");
+            }
         }
         else{
             try {
-            Connection cn1 = Conexion.conectar();
-            PreparedStatement pst1 = cn1.prepareStatement("Select id_inventario from inventario where codigo = '"+txtCodigo.getText()+"'");
-            ResultSet rs = pst1.executeQuery();
-            String ID= rs.getString("id_inventario");
+           
             Connection cn = Conexion.conectar();
-            PreparedStatement pst = cn.prepareStatement("update inventario set producto = ?, cantidad = ?, precio =? , codigo = ? where id_inventario ='"+ID+"'");
+            PreparedStatement pst = cn.prepareStatement("update inventario set producto = ?, cantidad = ?, precio =? , codigo = ? where id_inventario ='"+IDs+"'");
+            pst.setString(1, txtProducto.getText().trim());
+            pst.setString(2, txtCantidad.getText().trim());
+            pst.setString(3, txtPrecio.getText().trim());
+            pst.setString(4, txtCodigo.getText().trim());
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Actualizado con exito");
+            } catch (Exception e) {}
+        } 
         
-            } catch (Exception e) {
-            }
-            }
-        
-        
-        
-        
-        
-       
-        
-            
-      
     }//GEN-LAST:event_btnIngresarActionPerformed
 
-    
-    
-    
+
     private void txtCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCantidadActionPerformed
