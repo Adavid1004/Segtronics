@@ -20,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class NotaVenta1 extends javax.swing.JFrame implements Printable
 {
-    
+   String a=Login.user;
     int nf = -1;
     double subt = 0; //total columna final
     DefaultTableModel modelo;
@@ -30,6 +30,9 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
        
         initComponents();
         cargarBD();   
+        setTitle("Formulario Clientes"+"Sesión de"+a+"");
+        setLocationRelativeTo(null);
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -88,6 +91,7 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jLabel7.setText("Productos");
 

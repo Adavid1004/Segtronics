@@ -23,6 +23,8 @@ import javax.mail.internet.MimeMessage;
 
 public class Administrador extends javax.swing.JFrame {
 
+    String ab = Login.user;
+
     public Administrador() {
         initComponents();
         setLocationRelativeTo(null);
@@ -30,6 +32,7 @@ public class Administrador extends javax.swing.JFrame {
         comboEstado.addItem("Inactivo");
         comboNivel.addItem("Administrador");
         comboNivel.addItem("Empleado");
+        txtRegistradoU.setText(ab);
 
         this.getContentPane().setBackground(Color.white);
     }
@@ -103,6 +106,15 @@ public class Administrador extends javax.swing.JFrame {
             }
         });
 
+        txtpassword.setEditable(false);
+
+        txtRegistradoU.setEditable(false);
+        txtRegistradoU.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtRegistradoUActionPerformed(evt);
+            }
+        });
+
         btnIngresarU.setText("Ingresar ");
         btnIngresarU.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,6 +123,11 @@ public class Administrador extends javax.swing.JFrame {
         });
 
         jButton2.setText("Borrar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         comboEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -213,7 +230,7 @@ public class Administrador extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(txtMail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -264,6 +281,7 @@ public class Administrador extends javax.swing.JFrame {
         String b = "";
         try {
             Connection cn = Conexion.conectar();
+            txtpassword.setText(UUID.randomUUID().toString().toUpperCase().substring(0, 6));
             PreparedStatement pst = cn.prepareStatement("insert into usuarios values(?,?,?,?,?,?,?,?,?,?)");
 
             pst.setString(1, "0");
@@ -302,7 +320,7 @@ public class Administrador extends javax.swing.JFrame {
                                 String contrasena = "anddy1004";
                                 String destinatario = txtMail.getText();
                                 String asunto = "SOFTWARE F1 SOLUCIONES";
-                                String mensaje = txtpassword.getText();
+                                String mensaje = "Su usuario es: " + txtNombreU.getText() + " y su contraseña es: " + txtpassword.getText();
 
                                 MimeMessage mail = new MimeMessage(sesion);
 
@@ -405,6 +423,23 @@ public class Administrador extends javax.swing.JFrame {
 
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTelefonoKeyTyped
+
+    private void txtRegistradoUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRegistradoUActionPerformed
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtRegistradoUActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
+        txtNombreU.setText("");
+        txtCedula.setText("");
+        txtMail.setText("");
+        txtTelefono.setText("");
+        txtUsernameU.setText("");
+        txtpassword.setText("");
+        txtRegistradoU.setText("");
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     private boolean validarDocumento(String numero) {
         boolean valor = true;

@@ -111,6 +111,38 @@ public class GestionDatos extends Conexion {
         }
 
     }
+     
+     
+     public int ExisteProveedor(String Cedula) {
+
+        PreparedStatement pst = null;
+        Connection cn = Conexion.conectar();
+        ResultSet rs = null;
+
+        String sql = "SELECT count(id_proveedor) FROM proveedor where cedula=?";
+
+        try {
+            pst = cn.prepareStatement(sql);
+            pst.setString(1, Cedula);
+            rs = pst.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+            return 1;
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.toString());
+            return 1;
+        } finally {
+            try {
+                cn.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e.toString());
+            }
+        }
+
+    }
 
   
 }

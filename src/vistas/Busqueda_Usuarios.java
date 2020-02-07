@@ -5,6 +5,7 @@ import clases.GestionDatos;
 import java.awt.Color;
 import java.sql.*;
 import java.util.Properties;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.Message;
@@ -18,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class Busqueda_Usuarios extends javax.swing.JFrame {
+    
 
     public Busqueda_Usuarios() {
         initComponents();
@@ -27,6 +29,7 @@ public class Busqueda_Usuarios extends javax.swing.JFrame {
         comboNivel.addItem("Administrador");
         comboNivel.addItem("Empleado");
         this.getContentPane().setBackground(Color.white);
+       
 
     }
 
@@ -337,7 +340,7 @@ public class Busqueda_Usuarios extends javax.swing.JFrame {
             String[] dato = new String[8]; //segun las columnas de la tabla (es un vector)
 
             Connection cn = Conexion.conectar();
-            PreparedStatement pst = cn.prepareStatement("select id_usuarios ID, nombre NOMBRE, identificacion IDENTIFICACION, email MAIL, telefono TELEFONO, username USERNAME, nivel NIVEL, estatus ESTADO from usuarios where identificacion LIKE '%" + txtBusqueUsu.getText() + "%'");
+            PreparedStatement pst = cn.prepareStatement("select id_usuarios ID, nombre NOMBRE, identificacion IDENTIFICACION, email MAIL, telefono TELEFONO, username USERNAME, nivel NIVEL, estatus ESTADO from usuarios where identificacion like '%"+txtBusqueUsu.getText()+"%'");
             //bse de datos
             ResultSet rs = pst.executeQuery();  // para descargar datos
 
@@ -348,9 +351,9 @@ public class Busqueda_Usuarios extends javax.swing.JFrame {
                 dato[3] = rs.getString(4);
                 dato[4] = rs.getString(5);
                 dato[5] = rs.getString(6);
-
-                dato[6] = rs.getString(8);
-                dato[7] = rs.getString(9);
+                dato[6] = rs.getString(7);
+                dato[7] = rs.getString(8);
+                dato[8] = rs.getString(9);
                 //descargar datos de la tabla
 
                 modelo.addRow(dato);
@@ -440,7 +443,7 @@ public class Busqueda_Usuarios extends javax.swing.JFrame {
                                 String contrasena = "anddy1004";
                                 String destinatario = txtMail.getText();
                                 String asunto = "SOFTWARE F1 SOLUCIONES";
-                                String mensaje = txtPassword.getText();
+                                String mensaje ="Su usuario es: " + txtNombreU.getText() + " y su contraseña es: " + txtPassword.getText();
 
                                 MimeMessage mail = new MimeMessage(sesion);
 

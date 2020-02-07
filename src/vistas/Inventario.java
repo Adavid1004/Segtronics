@@ -10,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
 public class Inventario extends javax.swing.JFrame {
     public static String ID;
     public static boolean update = true;
+    public static boolean update1 = true;
  
     public Inventario() {
         initComponents();
@@ -65,6 +66,7 @@ public class Inventario extends javax.swing.JFrame {
         btnActualizar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnRegresar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -125,6 +127,13 @@ public class Inventario extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Aumentar al Inventario");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -136,7 +145,9 @@ public class Inventario extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnRegresar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)
+                        .addGap(28, 28, 28)
                         .addComponent(btnEditar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnNuevo))
@@ -167,7 +178,8 @@ public class Inventario extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNuevo)
                     .addComponent(btnEditar)
-                    .addComponent(btnRegresar))
+                    .addComponent(btnRegresar)
+                    .addComponent(jButton1))
                 .addContainerGap())
         );
 
@@ -263,6 +275,18 @@ Login lg = new Login();
             }        // TODO add your handling code here:
     }//GEN-LAST:event_btnRegresarActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+         update= false;
+        DefaultTableModel tabla = (DefaultTableModel) tbInventario.getModel();
+       int row = tbInventario.getSelectedRow();
+         System.out.println(row);
+        String id =String.valueOf(tbInventario.getValueAt(row, 0));
+        ID = id;
+         new Agregar_producto().setVisible(true);
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -302,6 +326,7 @@ Login lg = new Login();
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnRegresar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblInventario;
