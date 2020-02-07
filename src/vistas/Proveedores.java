@@ -2,6 +2,7 @@ package vistas;
 
 import clases.Conexion;
 import clases.GestionDatos;
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,6 +13,7 @@ public class Proveedores extends javax.swing.JFrame {
     public Proveedores() {
         initComponents();
         setLocationRelativeTo(null);
+        this.getContentPane().setBackground(Color.gray);
     }
 
     @SuppressWarnings("unchecked")
@@ -29,6 +31,8 @@ public class Proveedores extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        txtEmpresa = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -56,6 +60,8 @@ public class Proveedores extends javax.swing.JFrame {
             }
         });
 
+        jLabel6.setText("Empresa:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -73,12 +79,14 @@ public class Proveedores extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel3)
-                                    .addComponent(jLabel2))
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel6))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtCorre, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
                                     .addComponent(txtTelf)
-                                    .addComponent(txtCed)))))
+                                    .addComponent(txtCed)
+                                    .addComponent(txtEmpresa)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(80, 80, 80)
                         .addComponent(jLabel5)))
@@ -102,19 +110,23 @@ public class Proveedores extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addComponent(txtNom, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)))
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(txtCed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(18, 22, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(txtCorre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addGap(18, 21, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(txtTelf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
@@ -128,8 +140,8 @@ public class Proveedores extends javax.swing.JFrame {
         GestionDatos modSql = new GestionDatos();
         try {
             Connection cn = Conexion.conectar();
-            PreparedStatement pst = cn.prepareStatement("insert into proveedor values(?,?,?,?,?)");
-            if (txtCed.getText().equals("") || txtCorre.getText().equals("") || txtNom.getText().equals("") || txtTelf.getText().equals("")) {
+            PreparedStatement pst = cn.prepareStatement("insert into proveedor values(?,?,?,?,?,?)");
+            if (txtCed.getText().equals("") || txtCorre.getText().equals("") || txtNom.getText().equals("") || txtTelf.getText().equals("") || txtEmpresa.getText().equals("")){
                 JOptionPane.showMessageDialog(null, "Existen campos vacios");
             } else {
                 if (modSql.ExisteProveedor(txtCed.getText()) == 0) {
@@ -138,14 +150,16 @@ public class Proveedores extends javax.swing.JFrame {
 
                         pst.setString(1, "0");
                         pst.setString(2, txtNom.getText());
-                        pst.setString(3, txtCed.getText());
-                        pst.setString(4, txtCorre.getText());
-                        pst.setString(5, txtTelf.getText());
+                        pst.setString(3, txtEmpresa.getText());
+                        pst.setString(4, txtCed.getText());
+                        pst.setString(5, txtCorre.getText());
+                        pst.setString(6, txtTelf.getText());
 
                         txtCed.setText("");
                         txtCorre.setText("");
                         txtNom.setText("");
                         txtTelf.setText("");
+                        txtEmpresa.setText("");
 
                         JOptionPane.showMessageDialog(null, "Registro guardado en la Base de Datos");
                         pst.executeUpdate();
@@ -212,8 +226,10 @@ public class Proveedores extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JTextField txtCed;
     private javax.swing.JTextField txtCorre;
+    private javax.swing.JTextField txtEmpresa;
     private javax.swing.JTextField txtNom;
     private javax.swing.JTextField txtTelf;
     // End of variables declaration//GEN-END:variables

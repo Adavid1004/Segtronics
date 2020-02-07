@@ -349,7 +349,7 @@ public class Administrador extends javax.swing.JFrame {
                                 txtTelefono.setText("");
                                 txtUsernameU.setText("");
                                 txtpassword.setText("");
-                                txtRegistradoU.setText("");
+                                
 
                                 JOptionPane.showMessageDialog(null, "Registro guardado en la Base de Datos");
                                 pst.executeUpdate();
