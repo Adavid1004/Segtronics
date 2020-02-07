@@ -378,7 +378,7 @@ public class Compras extends javax.swing.JFrame {
             parrafo.add("RUC/Cedula: "+txtCedula.getText()+"\n\n");
             parrafo.setFont(FontFactory.getFont("Tehoms", 18, Font.BOLD, BaseColor.DARK_GRAY));
             parrafo.add("REPORTE DE COMPRAS\n\n");
-            parrafo.setFont(FontFactory.getFont("Tehoms", 18, Font.BOLD, BaseColor.DARK_GRAY));
+            parrafo.setFont(FontFactory.getFont("Tehoms", 20, Font.BOLD, BaseColor.DARK_GRAY));
             parrafo.add("REALIZADAS ALPROVEEDOR\n\n");
             documento.open();
             documento.add(header);
