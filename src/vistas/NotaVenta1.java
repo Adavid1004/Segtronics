@@ -31,8 +31,7 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
         initComponents();
         cargarBD();   
         setTitle("Formulario Clientes"+"Sesión de"+a+"");
-        setLocationRelativeTo(null);
-        
+        setLocationRelativeTo(null); 
     }
 
     @SuppressWarnings("unchecked")
@@ -404,18 +403,6 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1)
                     .addComponent(jSeparator2)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnAgragar)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel12))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtCantidadF, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jcProductos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -437,7 +424,19 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
                                     .addComponent(jButton2)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addComponent(jButton1)
-                                        .addGap(26, 26, 26)))))
+                                        .addGap(26, 26, 26))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnAgragar)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel8)
+                                            .addComponent(jLabel12))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jcProductos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(txtCantidadF))))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(NotadeVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -493,7 +492,7 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
         
         String str = txtCedulaF.getText();
         try {
-            /*DefaultTableModel*/ modelo = new DefaultTableModel();
+            modelo = new DefaultTableModel();
             modelo.addColumn("ID");
             modelo.addColumn("NOMBRE");
             modelo.addColumn("IDENTIFICACION");
@@ -538,7 +537,7 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
         
         // Agregar el número de documento
         try {
-            /*DefaultTableModel*/ modelo = new DefaultTableModel();
+            modelo = new DefaultTableModel();
             modelo.addColumn("NUMERODOCUMENTO");
             String []dato1 =new String[2];
             
@@ -567,7 +566,6 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
             PreparedStatement pst;
             pst = cn.prepareStatement("select producto from inventario");
             ResultSet rs = pst.executeQuery("select producto from inventario");   
-            //jcProductos.removeAllItems();
             
             while(rs.next())
             {
@@ -584,96 +582,94 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
         // TODO add your handling code here:  
         
     }//GEN-LAST:event_jcProductosActionPerformed
-
+    
     private void btnAgragarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgragarActionPerformed
-        if (!jcProductos.getSelectedItem().equals("-Seleccione un Producto-") && !txtCantidadF.getText().equals("")) {
-              
-        
-        modelo = (DefaultTableModel) tbFactura.getModel();
-        String[] ff = {"", "", "", "", ""}; // Cantidad de columnas de la tabla
-        modelo.addRow(ff); 
+        if (!jcProductos.getSelectedItem().equals("-Seleccione un Producto-") && !txtCantidadF.getText().equals("")) 
+        {
+            modelo = (DefaultTableModel) tbFactura.getModel();
+            String[] ff = {"", "", "", "", ""}; // Cantidad de columnas de la tabla
+            modelo.addRow(ff); 
 
-        
-        double pru = 0; //precio unitario
-        double totalp = 0; //precio total del producto
-        double iva = 0;
-        double tcf = 0; //total a pagar
-        String codigo; //codigo del producto en la base de datos
-        String can; // Cantidad
-        String pro; // Producto
-        nf++; //Agregar datos en una nueva fila de la tabla
-        String clc;
-        
 
-        can = txtCantidadF.getText();
-        pro = (String) jcProductos.getSelectedItem();    
+            double pru = 0; //precio unitario
+            double totalp = 0; //precio total del producto
+            String codigo; //codigo del producto en la base de datos
+            String can; // Cantidad
+            String pro; // Producto
+            nf++; //Agregar datos en una nueva fila de la tabla
 
-        try {           
-            modelo = new DefaultTableModel();
-          
-            modelo.addColumn("CODIGO");  
-            modelo.addColumn("CANTIDAD");
-            modelo.addColumn("PRODUCTO");
-            modelo.addColumn("PRECIO UNITARIO");
-            modelo.addColumn("PRECIO TOTAL");
-            
-            
-            String []dato =new String[4]; 
-            
-            Connection cn = Conexion.conectar();
-            PreparedStatement pst = cn.prepareStatement("select cantidad CANTIDAD, producto PRODUCTO, precio PRECIO, codigo CODIGO from inventario");
-            ResultSet rs = pst.executeQuery();   
-            
-            while(rs.next())
-                {   
-                    
-                    dato[3]=rs.getString(4); //codigos
-                    dato[0]=can; //Cantidad ingresada
-                    dato[1]=rs.getString(2); //Productos
-                    dato[2]=rs.getString(3); //precio unitario           
-                    //modelo.addRow(dato);
+            can = txtCantidadF.getText();
+            pro = (String) jcProductos.getSelectedItem();    
 
-                    if(dato[1].equals(pro))
-                    {
-                        /*clc = (dato[4]);
-                        
-                        if(Integer.parseInt(can) >= Integer.parseInt(clc))
-                        {
-                            JOptionPane.showMessageDialog(null, "La cantidad ingresada supara la existente");
-                        }*/
-                                                
-                        pru = Integer.parseInt(dato[2]);//Cuarta columna
-                        totalp = pru * Integer.parseInt(can);//Quinta columna;
-                        codigo = dato[3]; //Primera Columna
-                                                                       
-                        tbFactura.setValueAt(codigo, nf, 0);        
-                        tbFactura.setValueAt(pro, nf, 2);        
-                        tbFactura.setValueAt(can, nf, 1);    
-                        tbFactura.setValueAt(pru, nf, 3);                   
-                        tbFactura.setValueAt(totalp, nf, 4); 
-                    }  
-                    this.txtCantidadF.setText("");
-                }
-                                        
-                subt = subt + totalp;
-                txtSubtotal.setText(String.valueOf(subt));
-               
-                iva = (subt * 12) / 100;
-                txtIVA.setText(String.valueOf(iva));
-                        
-                tcf = subt + iva;
-                txtTotal.setText(String.valueOf(tcf));
+            try {           
+                modelo = new DefaultTableModel();
+
+                modelo.addColumn("CODIGO");  
+                modelo.addColumn("CANTIDAD");
+                modelo.addColumn("PRODUCTO");
+                modelo.addColumn("PRECIO UNITARIO");
+                modelo.addColumn("PRECIO TOTAL");
+
+
+                String []dato =new String[5]; 
+
+                Connection cn = Conexion.conectar();
+                PreparedStatement pst = cn.prepareStatement("select cantidad CANTIDAD, producto PRODUCTO, precio PRECIO, codigo CODIGO from inventario");
+                ResultSet rs = pst.executeQuery();   
                 
-        } catch (Exception e) 
-            {}
+                while(rs.next())
+                    {   
+                        dato[3]=rs.getString(4); //codigos
+                        dato[0]=can; //Cantidad ingresada
+                        dato[1]=rs.getString(2); //Productos
+                        dato[2]=rs.getString(3); //precio unitario           
+                        dato[4]=rs.getString(1);
+                        //modelo.addRow(dato);    
+          
+                        if(dato[1].equals(pro))
+                        {                           
+                            codigo = dato[3]; //Primera Columna
+                            pru = Integer.parseInt(dato[2]);//Cuarta columna
+                            totalp = pru * Integer.parseInt(can);//Quinta columna;
+
+                            if(Integer.parseInt(dato[4]) <= Integer.parseInt(can))
+                            {
+                                JOptionPane.showMessageDialog(null, "La cantidad es mayor a la existente");                             
+                            }else{    
+                            tbFactura.setValueAt(codigo, nf, 0);        
+                            tbFactura.setValueAt(pro, nf, 2);        
+                            tbFactura.setValueAt(can, nf, 1);    
+                            tbFactura.setValueAt(pru, nf, 3);                   
+                            tbFactura.setValueAt(totalp, nf, 4);
+                            }  
+                        }this.txtCantidadF.setText("");
+                    }
+                eliminarfila();    
+                sumacolumna();                        
+            } catch (Exception e) 
+                {}
         }else{
-        JOptionPane.showMessageDialog(null, "Necesita seleccionar un producto y clocar una cantidad para agregar a la nota de venta");
+        JOptionPane.showMessageDialog(null, "Necesita seleccionar un producto e indicar una cantidad para agregar a la nota de venta");
         }
-        
-      
-        //modelo.addRow(new Object[]{"", "", "", "", ""}); 
     }//GEN-LAST:event_btnAgragarActionPerformed
 
+    public void sumacolumna()
+    {
+        double iva, tcf, fila, total = 0;
+        for (int i = 0; i<tbFactura.getRowCount(); i++) 
+        {
+            fila = Double.parseDouble(tbFactura.getValueAt(i, 4).toString());
+            total = total + fila;            
+        } 
+        txtSubtotal.setText(Double.toString(total));
+        
+        iva = (total * 12) / 100;
+        txtIVA.setText(Double.toString(iva));
+
+        tcf = total + iva;
+        txtTotal.setText(Double.toString(tcf));
+    }  
+    
     private void txtTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTotalActionPerformed
@@ -716,7 +712,7 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
                 
             }
         } catch (Exception e) 
-            {}JOptionPane.showMessageDialog(null, "124567890");
+            {}JOptionPane.showMessageDialog(null, "Se procede a imprimir la nota de venta");
         
             //Impresion
         try 
@@ -752,18 +748,24 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        eliminarfila();
 
-    modelo = (DefaultTableModel) tbFactura.getModel();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    public void eliminarfila()
+    {
+           modelo = (DefaultTableModel) tbFactura.getModel();
     
     if(tbFactura.getSelectedRow() != -1)
         {
             modelo.removeRow(tbFactura.getSelectedRow());
-            nf = nf+tbFactura.getSelectedRow();  
-        }
-
-
-    }//GEN-LAST:event_jButton2ActionPerformed
-
+            nf = nf+tbFactura.getSelectedRow(); 
+            sumacolumna();
+            
+        } 
+    }
+    
+    
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 
         Login lg = new Login();
@@ -816,6 +818,14 @@ public class NotaVenta1 extends javax.swing.JFrame implements Printable
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(NotaVenta1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
